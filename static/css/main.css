@@ -211,6 +211,28 @@ sup { font-size: 10px; color: var(--color-text-muted); margin-left: 1px; }
 .method-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
 .method-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; }
 
+/* Figure blocks */
+.figure-block {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 8px;
+}
+.figure-block img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 14px;
+}
+.figure-caption {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  padding: 0 4px;
+}
+
 /* Tables */
 .table-caption { font-size: 14px; color: var(--color-text-muted); margin-bottom: 14px; margin-top: 2px; }
 

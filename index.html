@@ -21,7 +21,7 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="container">
-    <div class="venue-badge">KDD 2026 · AI4Sciences Workshop</div>
+    <div class="venue-badge">KDD 2026 · AI4Sciences Track</div>
 
     <h1 class="paper-title">
       MindAdapter: Few-Shot Parameter-Efficient<br/>
@@ -79,12 +79,12 @@
       </a>
     </div>
 
-    <!-- Teaser figure placeholder -->
+    <!-- Teaser figure -->
     <div class="teaser">
       <div class="teaser-inner">
-        <img src="static/images/teaser.png" alt="MindAdapter overview" onerror="this.parentElement.classList.add('no-image')" />
+        <img src="static/images/fig2_overview.png" alt="MindAdapter overview" />
         <p class="teaser-caption">
-          <strong>MindAdapter</strong> augments a frozen pretrained Brain Transfer Matrix (BTM) with a lightweight nonlinear residual adapter, calibrated from a small set of shared stimuli via a topology-anchored dual-stream loss. The adapter corrects subject-specific deviations without retraining the large backbone.
+          <strong>Figure 2.</strong> Overview of MindAdapter. During training, a frozen pretrained BTM provides a coarse cross-subject alignment, while a lightweight nonlinear MindAdapter learns residual corrections using a small set of shared stimuli through anchor-based supervision and a frozen visual decoder. During inference, target-subject fMRI is mapped to calibrated latent embeddings and decoded into images using the frozen decoder, enabling high-fidelity cross-subject visual reconstruction.
         </p>
       </div>
     </div>
@@ -130,13 +130,42 @@
         <p>Only ~88M adapter parameters are trained per subject pair. Calibration takes ~7 minutes on a single H100, using as few as 64 shared stimulus images — orders of magnitude less data than full retraining.</p>
       </div>
     </div>
+
+    <!-- Dual-stream figure -->
+    <div class="figure-block" style="margin-top: 56px;">
+      <img src="static/images/fig3_dualstream.png" alt="Topology-Anchored Dual-Stream Manifold Constraint" />
+      <p class="figure-caption">
+        <strong>Figure 3.</strong> Topology-anchored dual-stream manifold constraint. MindAdapter jointly optimizes an anchor-based alignment loss ℒ<sub>anchor</sub> on few-shot paired samples and a semantic consistency loss ℒ<sub>sec</sub> on unpaired data, stabilizing the pretrained-functional manifold while enabling subject-specific residual adaptation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUALITATIVE ===== -->
+<section class="section" id="qualitative">
+  <div class="container">
+    <h2 class="section-title">Qualitative Results</h2>
+
+    <div class="figure-block">
+      <img src="static/images/fig4_qualitative.png" alt="Qualitative comparison" />
+      <p class="figure-caption">
+        <strong>Figure 4.</strong> Qualitative comparison of reconstructed images. MindAdapter produces reconstructions with improved object localization and semantic fidelity over MindAligner, demonstrating the effectiveness of few-shot residual calibration.
+      </p>
+    </div>
+
+    <div class="figure-block" style="margin-top: 48px;">
+      <img src="static/images/fig7_shot_qualitative.png" alt="Effect of source subject" style="max-width: 560px; margin: 0 auto; display: block;" />
+      <p class="figure-caption">
+        <strong>Figure 7.</strong> Effect of aligning a fixed target subject with different source subjects. MindAdapter yields consistent reconstructions across alignment directions, indicating robust source-invariant cross-subject calibration.
+      </p>
+    </div>
   </div>
 </section>
 
 <!-- ===== RESULTS ===== -->
-<section class="section" id="results">
+<section class="section section-alt" id="results">
   <div class="container">
-    <h2 class="section-title">Results</h2>
+    <h2 class="section-title">Quantitative Results</h2>
 
     <h3 class="subsection-title">Main Comparison — Subject 7, NSD</h3>
     <p class="table-caption">MindAdapter is the best diffusion-based cross-subject method in the no-new-target-scanning regime.</p>
@@ -215,6 +244,21 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="figure-block" style="margin-top: 40px;">
+      <img src="static/images/fig6_mindeye2_compare.png" alt="Comparison with MindEye2 and MindAligner" />
+      <p class="figure-caption">
+        <strong>Figure 6.</strong> Comparison of MindEye2, MindAligner, and MindAdapter on low-level image fidelity and high-level semantic similarity metrics. MindAdapter requires substantially fewer trainable parameters and dramatically less training time, enabling efficient few-shot calibration.
+      </p>
+    </div>
+
+    <h3 class="subsection-title">Few-Shot Scaling — Effect of Anchor Count</h3>
+    <div class="figure-block">
+      <img src="static/images/fig5_shot_scaling.png" alt="Performance vs number of shots" />
+      <p class="figure-caption">
+        <strong>Figure 5.</strong> Performance scaling of MindAdapter as a function of the number of few-shot anchor samples for different cross-subject transfer directions (1→2, 1→5, 1→7). MindAdapter improves rapidly with very few anchors and saturates around 64 samples on most metrics.
+      </p>
     </div>
 
     <h3 class="subsection-title">Statistical Significance — 1→2, 64-shot, n=1000</h3>
