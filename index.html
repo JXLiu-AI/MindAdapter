@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindAdapter: Few-Shot Residual Calibration for Cross-Subject Brain Decoding</title>
+  <meta name="description" content="MindAdapter: Few-Shot Parameter-Efficient Residual Calibration of Cross-Subject Brain-to-Visual Decoding Models. KDD 2026 AI4Sciences." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="static/css/main.css" />
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="venue-badge">KDD 2026 · AI4Sciences Workshop</div>
+
+    <h1 class="paper-title">
+      MindAdapter: Few-Shot Parameter-Efficient<br/>
+      Residual Calibration of Cross-Subject<br/>
+      Brain-to-Visual Decoding Models
+    </h1>
+
+    <!-- Authors -->
+    <div class="authors">
+      <span class="author">
+        <a href="mailto:liujiaxiang@gdiist.cn">Jiaxiang Liu</a><sup>1</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:dujiawei@u.nus.edu">Jiawei Du</a><sup>2</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:xc1490@nyu.edu">Xupeng Chen</a><sup>3</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:guoqi.li@ia.ac.cn">Guoqi Li</a><sup>4</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:caijiang@gdiist.cn">Jiang Cai</a><sup>1</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:ccfong@um.edu.mo">Simon Fong</a><sup>5</sup>
+      </span>
+      <span class="author">
+        <a href="mailto:xumingkun@gdiist.cn">Mingkun Xu</a><sup>1</sup>
+      </span>
+    </div>
+
+    <!-- Affiliations -->
+    <div class="affiliations">
+      <span><sup>1</sup>Guangdong Institute of Intelligence Science and Technology</span>
+      <span><sup>2</sup>Agency for Science, Technology and Research (A*STAR), Singapore</span>
+      <span><sup>3</sup>New York University</span>
+      <span><sup>4</sup>Institute of Automation, Chinese Academy of Sciences</span>
+      <span><sup>5</sup>University of Macau</span>
+    </div>
+
+    <!-- Links -->
+    <div class="links">
+      <a class="btn btn-primary" href="#" id="paper-link">
+        <i class="fas fa-file-pdf"></i> Paper
+      </a>
+      <a class="btn btn-secondary" href="#" id="code-link">
+        <i class="fab fa-github"></i> Code
+      </a>
+      <a class="btn btn-secondary" href="#results">
+        <i class="fas fa-chart-bar"></i> Results
+      </a>
+      <a class="btn btn-secondary" href="#bibtex">
+        <i class="fas fa-quote-right"></i> BibTeX
+      </a>
+    </div>
+
+    <!-- Teaser figure placeholder -->
+    <div class="teaser">
+      <div class="teaser-inner">
+        <img src="static/images/teaser.png" alt="MindAdapter overview" onerror="this.parentElement.classList.add('no-image')" />
+        <p class="teaser-caption">
+          <strong>MindAdapter</strong> augments a frozen pretrained Brain Transfer Matrix (BTM) with a lightweight nonlinear residual adapter, calibrated from a small set of shared stimuli via a topology-anchored dual-stream loss. The adapter corrects subject-specific deviations without retraining the large backbone.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABSTRACT ===== -->
+<section class="section" id="abstract">
+  <div class="container">
+    <h2 class="section-title">Abstract</h2>
+    <div class="abstract-text">
+      <p>
+        Cross-subject brain-to-visual decoding remains a core challenge in brain–computer interfaces due to severe inter-individual variability that induces systematic subject-specific functional misalignment. To address this issue, we propose <strong>MindAdapter</strong>, a parameter-efficient few-shot calibration framework for pretrained brain-to-visual decoding models.
+      </p>
+      <p>
+        MindAdapter adopts a <em>decoupled linear-residual cascade alignment</em> paradigm by freezing a pretrained explicit brain functional alignment backbone (coarse) and introducing a lightweight nonlinear residual adapter (fine), thereby disentangling global cross-subject correspondence from subject-specific residual corrections for fine-grained spatial and semantic calibration.
+      </p>
+      <p>
+        To further preserve global representational stability, we design a <em>topology-anchored dual-stream manifold constraint</em>, where a small set of shared stimuli serves as topological pins with voxel-level paired supervision, while a semantic stream enforces consistency through a frozen vision–language decoder on unpaired brain data. Experiments on the Natural Scenes Dataset (NSD) demonstrate that MindAdapter substantially improves cross-subject visual reconstruction and retrieval accuracy using only a few shared stimuli, offering a practical and data-efficient solution for personalized brain-to-visual decoding.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== METHOD ===== -->
+<section class="section section-alt" id="method">
+  <div class="container">
+    <h2 class="section-title">Method</h2>
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-icon">🧠</div>
+        <h3>Decoupled Linear-Residual Cascade</h3>
+        <p>A frozen pretrained Brain Transfer Matrix (BTM) handles coarse population-level alignment. A trainable nonlinear residual adapter handles fine-grained subject-specific correction — the two stages never interfere.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🎯</div>
+        <h3>Topology-Anchored Dual-Stream Loss</h3>
+        <p>An <em>Anchor Stream</em> uses a small set of shared stimuli as topological pins with voxel-level MSE and InfoNCE losses. A <em>Semantic Stream</em> enforces CLIP-based consistency on unpaired source data, preventing semantic drift.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">⚡</div>
+        <h3>Parameter-Efficient Calibration</h3>
+        <p>Only ~88M adapter parameters are trained per subject pair. Calibration takes ~7 minutes on a single H100, using as few as 64 shared stimulus images — orders of magnitude less data than full retraining.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="section" id="results">
+  <div class="container">
+    <h2 class="section-title">Results</h2>
+
+    <h3 class="subsection-title">Main Comparison — Subject 7, NSD</h3>
+    <p class="table-caption">MindAdapter is the best diffusion-based cross-subject method in the no-new-target-scanning regime.</p>
+    <div class="table-wrap">
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Setting</th>
+            <th>PixCorr ↑</th>
+            <th>SSIM ↑</th>
+            <th>Alex(2) ↑</th>
+            <th>Alex(5) ↑</th>
+            <th>Incep ↑</th>
+            <th>CLIP ↑</th>
+            <th>Eff ↓</th>
+            <th>SwAV ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MindEye2</td>
+            <td>1 h target data</td>
+            <td>0.170</td><td>0.408</td><td>80.7</td><td>85.9</td><td>74.9</td><td>74.3</td><td>0.854</td><td>0.504</td>
+          </tr>
+          <tr>
+            <td>MindAligner</td>
+            <td>1 h target data</td>
+            <td>0.183</td><td>0.407</td><td>81.45</td><td>88.31</td><td>79.92</td><td>77.82</td><td>0.834</td><td>0.487</td>
+          </tr>
+          <tr>
+            <td>ZEBRA</td>
+            <td>Zero-shot</td>
+            <td>0.153</td><td>0.384</td><td>76.1</td><td>81.8</td><td>73.4</td><td>72.3</td><td>0.814</td><td>0.490</td>
+          </tr>
+          <tr>
+            <td>MindShot</td>
+            <td>Few-shot</td>
+            <td>0.127</td><td>0.272</td><td>78.0</td><td>86.2</td><td>79.5</td><td>82.0</td><td>0.806</td><td>0.487</td>
+          </tr>
+          <tr>
+            <td>MindBridge</td>
+            <td>500 target samples</td>
+            <td>0.112</td><td>0.229</td><td>79.6</td><td>89.0</td><td>82.3</td><td>86.7</td><td>0.840</td><td>0.521</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>MindAdapter (Ours)</strong></td>
+            <td><strong>Few-shot shared anchors</strong></td>
+            <td><strong>0.187</strong></td><td><strong>0.409</strong></td><td><strong>82.21</strong></td><td>88.37</td><td>80.45</td><td>77.64</td><td><strong>0.829</strong></td><td><strong>0.485</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Cross-Dataset Generalization — THINGS-fMRI</h3>
+    <p class="table-caption">The residual-calibration recipe generalizes beyond NSD.</p>
+    <div class="table-wrap">
+      <table class="result-table compact">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>fwd top-1 ↑</th>
+            <th>bwd top-1 ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MindAligner (BTM only)</td>
+            <td>0.210 ± 0.000</td>
+            <td>0.140 ± 0.000</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>MindAdapter (Ours)</strong></td>
+            <td><strong>0.227 ± 0.005</strong> <span class="delta">(+8.0% rel.)</span></td>
+            <td><strong>0.153 ± 0.013</strong> <span class="delta">(+9.5% rel.)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Statistical Significance — 1→2, 64-shot, n=1000</h3>
+    <p class="table-caption">Per-image paired t-test: adapter vs. no adapter on the same checkpoint and pipeline.</p>
+    <div class="table-wrap">
+      <table class="result-table compact">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Δ</th>
+            <th>Cohen's d</th>
+            <th>p-value</th>
+            <th>Images improved</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PixCorr ↑</td><td>+0.11</td><td>0.36</td><td>&lt;10⁻²⁰</td><td>60.6%</td></tr>
+          <tr><td>SSIM ↑</td><td>+0.04</td><td>0.33</td><td>&lt;10⁻²⁰</td><td>63.4%</td></tr>
+          <tr><td>Alex(2) ↑</td><td>+0.16</td><td>0.59</td><td>&lt;10⁻²⁰</td><td>70.1%</td></tr>
+          <tr><td>Alex(5) ↑</td><td>+0.17</td><td>0.60</td><td>&lt;10⁻²⁰</td><td>73.2%</td></tr>
+          <tr><td>CLIP ↑</td><td>+0.13</td><td>0.45</td><td>&lt;10⁻²⁰</td><td>65.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABLATION ===== -->
+<section class="section section-alt" id="ablation">
+  <div class="container">
+    <h2 class="section-title">Ablation Study</h2>
+    <p class="table-caption">Effect of each loss component on 1→2, 64-shot.</p>
+    <div class="table-wrap">
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>PixCorr ↑</th>
+            <th>SSIM ↑</th>
+            <th>Alex(2) ↑</th>
+            <th>CLIP ↑</th>
+            <th>Fwd ↑</th>
+            <th>Bwd ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>w/o L<sub>Anchor</sub></td><td>.1309</td><td>.3953</td><td>.8067</td><td>.7098</td><td>.7351</td><td>.6348</td></tr>
+          <tr><td>w/o L<sub>Anchor</sub><sup>MSE</sup></td><td>.1956</td><td>.4156</td><td>.8399</td><td>.7559</td><td>.7841</td><td>.6962</td></tr>
+          <tr><td>w/o L<sub>Anchor</sub><sup>NCE</sup></td><td>.2179</td><td>.4161</td><td>.8830</td><td>.8256</td><td>.9154</td><td>.8619</td></tr>
+          <tr><td>w/o L<sub>sec</sub></td><td>.2177</td><td>.4164</td><td>.8822</td><td>.8256</td><td>.9110</td><td>.8664</td></tr>
+          <tr class="highlight-row"><td><strong>Full MindAdapter</strong></td><td><strong>.2183</strong></td><td><strong>.4164</strong></td><td><strong>.8826</strong></td><td>.8229</td><td><strong>.9171</strong></td><td><strong>.8707</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BIBTEX ===== -->
+<section class="section" id="bibtex">
+  <div class="container">
+    <h2 class="section-title">BibTeX</h2>
+    <div class="bibtex-wrap">
+      <button class="copy-btn" onclick="copyBibtex()"><i class="fas fa-copy"></i> Copy</button>
+      <pre class="bibtex" id="bibtex-block">@inproceedings{liu2026mindadapter,
+  title     = {MindAdapter: Few-Shot Parameter-Efficient Residual Calibration
+               of Cross-Subject Brain-to-Visual Decoding Models},
+  author    = {Liu, Jiaxiang and Du, Jiawei and Chen, Xupeng and
+               Li, Guoqi and Cai, Jiang and Fong, Simon and Xu, Mingkun},
+  booktitle = {Proceedings of the 32nd ACM SIGKDD Conference on Knowledge
+               Discovery and Data Mining (AI4Sciences Workshop)},
+  year      = {2026},
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <p>
+      This page is adapted from the
+      <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies project page</a>
+      template. · Contact: <a href="mailto:liujiaxiang@gdiist.cn">liujiaxiang@gdiist.cn</a>
+    </p>
+  </div>
+</footer>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>

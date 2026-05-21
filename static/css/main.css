@@ -1,0 +1,321 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-accent: #7c3aed;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-highlight: #eff6ff;
+  --color-highlight-border: #bfdbfe;
+  --radius: 12px;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.venue-badge {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+  margin-bottom: 28px;
+}
+
+.paper-title {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+}
+
+/* Authors */
+.authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.author a {
+  font-weight: 500;
+  color: var(--color-text);
+}
+.author a:hover { color: var(--color-primary); text-decoration: none; }
+sup { font-size: 10px; color: var(--color-text-muted); margin-left: 1px; }
+
+/* Affiliations */
+.affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+}
+
+/* Buttons */
+.links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+  text-decoration: none !important;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.btn-primary:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-md); }
+
+.btn-secondary {
+  background: #fff;
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+.btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+/* Teaser */
+.teaser { max-width: 780px; margin: 0 auto; }
+
+.teaser-inner {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.teaser-inner img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.teaser-inner.no-image img { display: none; }
+
+.teaser-inner.no-image::before {
+  content: '[ Figure: MindAdapter Architecture ]';
+  display: block;
+  width: 100%;
+  background: var(--color-bg-alt);
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.teaser-caption { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+
+/* ===== SECTIONS ===== */
+.section { padding: 72px 0; }
+.section-alt { background: var(--color-bg-alt); }
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  color: var(--color-text);
+}
+
+.subsection-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 40px 0 10px;
+  color: var(--color-text);
+}
+
+.subsection-title:first-of-type { margin-top: 0; }
+
+/* Abstract */
+.abstract-text p {
+  color: var(--color-text);
+  margin-bottom: 16px;
+  font-size: 16.5px;
+}
+.abstract-text p:last-child { margin-bottom: 0; }
+
+/* Method cards */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.method-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+}
+
+.method-icon { font-size: 32px; margin-bottom: 14px; }
+.method-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+.method-card p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; }
+
+/* Tables */
+.table-caption { font-size: 14px; color: var(--color-text-muted); margin-bottom: 14px; margin-top: 2px; }
+
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 8px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: #fff;
+}
+
+.result-table thead { background: var(--color-text); color: #fff; }
+.result-table th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.result-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+.result-table tbody tr:last-child td { border-bottom: none; }
+.result-table tbody tr:hover td { background: var(--color-highlight); }
+
+.result-table.compact th,
+.result-table.compact td { padding: 9px 14px; }
+
+.highlight-row td {
+  background: var(--color-highlight) !important;
+  border-top: 2px solid var(--color-highlight-border);
+  border-bottom: 2px solid var(--color-highlight-border);
+}
+
+.delta {
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* BibTeX */
+.bibtex-wrap {
+  position: relative;
+  background: #1e293b;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  overflow: auto;
+}
+
+.bibtex {
+  font-family: 'Source Code Pro', 'Fira Code', monospace;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #e2e8f0;
+  white-space: pre;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); }
+.copy-btn.copied { color: #86efac; }
+
+/* Footer */
+footer {
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--color-text-muted);
+}
+
+footer a { color: var(--color-text-muted); text-decoration: underline; }
+footer a:hover { color: var(--color-primary); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .hero { padding: 56px 0 48px; }
+  .paper-title { font-size: 22px; }
+  .section { padding: 52px 0; }
+  .section-title { font-size: 22px; }
+  .method-grid { grid-template-columns: 1fr; }
+  .bibtex-wrap { padding: 20px; }
+}
