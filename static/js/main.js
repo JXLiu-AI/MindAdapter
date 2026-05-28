@@ -18,10 +18,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const paperLink = document.getElementById('paper-link');
   const codeLink = document.getElementById('code-link');
 
-  if (codeLink && codeLink.getAttribute('href') === '#') {
-    codeLink.addEventListener('click', e => {
-      e.preventDefault();
-      alert('Code repository coming soon.');
-    });
-  }
 });
