@@ -87,28 +87,6 @@ The runner produces metrics: PixCorr, SSIM, AlexNet(2/5), Inception, CLIP, Effic
 
 ---
 
-## Results
-
-<p align="center">
-  <img src="static/images/fig4_qualitative.png" alt="Qualitative reconstructions" width="100%"/>
-  <br/>
-  <em>Qualitative comparison of reconstructions (Stimuli / MindAligner / Ours).</em>
-</p>
-
-<p align="center">
-  <img src="static/images/fig6_mindeye2_compare.png" alt="Comparison vs MindEye2 / MindAligner" width="100%"/>
-  <br/>
-  <em>MindAdapter vs. MindEye2 / MindAligner: comparable or better reconstruction quality with ~25× fewer trainable parameters and ~200× less training time.</em>
-</p>
-
-<p align="center">
-  <img src="static/images/fig5_shot_scaling.png" alt="Performance vs number of shots" width="100%"/>
-  <br/>
-  <em>Performance scaling vs. number of few-shot anchors. MindAdapter saturates around 64 shots on most metrics.</em>
-</p>
-
----
-
 ## Citation
 
 ```bibtex
