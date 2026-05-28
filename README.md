@@ -1,9 +1,13 @@
-# MindAdapter — Code
+# MindAdapter
 
 Official implementation of **MindAdapter: Few-Shot Parameter-Efficient Residual Calibration of Cross-Subject Brain-to-Visual Decoding Models** (KDD 2026, AI4Sciences Track).
 
 - **Project page**: https://jxliu-ai.github.io/MindAdapter/
 - **Paper**: https://arxiv.org/abs/2605.24679
+
+<p align="center">
+  <img src="static/images/fig2_overview.png" alt="MindAdapter overview" width="100%"/>
+</p>
 
 ---
 
@@ -20,6 +24,12 @@ voxel  ──►  [frozen BTM]  ──►  coarse_aligned
                                   ▼
                   coarse_aligned + fine_residual  ──►  frozen diffusion decoder  ──►  image
 ```
+
+<p align="center">
+  <img src="static/images/fig3_dualstream.png" alt="Topology-anchored dual-stream loss" width="65%"/>
+  <br/>
+  <em>Topology-anchored dual-stream loss: anchor stream (MSE + InfoNCE on shared stimuli) + semantic stream (CLIP consistency on unpaired source data).</em>
+</p>
 
 Architecture mapping to the paper:
 
@@ -74,6 +84,28 @@ bash scripts/eval_1000.sh
 ```
 
 The runner produces metrics: PixCorr, SSIM, AlexNet(2/5), Inception, CLIP, EfficientNet-B, SwAV, and forward/backward retrieval.
+
+---
+
+## Results
+
+<p align="center">
+  <img src="static/images/fig4_qualitative.png" alt="Qualitative reconstructions" width="100%"/>
+  <br/>
+  <em>Qualitative comparison of reconstructions (Stimuli / MindAligner / Ours).</em>
+</p>
+
+<p align="center">
+  <img src="static/images/fig6_mindeye2_compare.png" alt="Comparison vs MindEye2 / MindAligner" width="100%"/>
+  <br/>
+  <em>MindAdapter vs. MindEye2 / MindAligner: comparable or better reconstruction quality with ~25× fewer trainable parameters and ~200× less training time.</em>
+</p>
+
+<p align="center">
+  <img src="static/images/fig5_shot_scaling.png" alt="Performance vs number of shots" width="100%"/>
+  <br/>
+  <em>Performance scaling vs. number of few-shot anchors. MindAdapter saturates around 64 shots on most metrics.</em>
+</p>
 
 ---
 
